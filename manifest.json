@@ -7,7 +7,15 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["activeTab"],
+  "permissions": [
+	"tabs",
+	"cookies",
+	"storage"
+  ],
+  "host_permissions": [
+	"http://*/*",
+    "https://*/*"
+  ],
   "background": {
     "service_worker": "background.js"
   }

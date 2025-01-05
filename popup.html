@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Popup</title>
-    <script src="popup.js" defer></script>
-</head>
-<body>
-    <h1>Hello, Extension!</h1>
-    <button id="btn">Click Me</button>
-</body>
-</html>
 
+<head>
+	<title>Popup</title>
+	<script type="module" src="popup.js" defer></script>
+</head>
+
+<body>
+	<h1>Copy Paste Cookies</h1>
+	<main id="main">
+		<section id="cookies">
+			<div id="cookies-list"></div>
+			<button id="new-cookie">New</button>
+		</section>
+		<aside id="buttons">
+			<button id="clear-cookies">Clear</button>
+			<button id="copy-cookies">Copy</button>
+			<button id="paste-cookies">Paste</button>
+		</aside>
+	</main>
+
+</body>
+
+</html>
