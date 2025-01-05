@@ -2,6 +2,10 @@
 
 A Chrome extension that allows transfering cookies from one tab to another.
 
+
+![image](https://github.com/user-attachments/assets/3cfa2efc-5487-4728-af58-f3b80c6c7cae)
+
+
 ## Installation
 
 1. Clone the repository
