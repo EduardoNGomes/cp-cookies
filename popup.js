@@ -228,6 +228,10 @@ const renderByStorage = () => {
 	chrome.storage.local.get(["cp-cookies-list"], (result) => {
 		const parsedCookies = JSON.parse(result["cp-cookies-list"] || "[]");
 		cookies.push(...parsedCookies);
+		if (cookies.length === 0) {
+			createCookie("");
+			updateDeleteButtons();
+		}
 		cookies.forEach((cookie) => {
 			createCookie(cookie.name)
 			updateDeleteButtons();
