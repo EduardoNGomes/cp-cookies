@@ -59,10 +59,9 @@ const createCookie = (value) => {
 	const newCookieItem = document.createElement('label');
 	newCookieItem.classList.add('cookie-item');
 	newCookieItem.innerHTML += `
-	<label class="cookie-item">
 		<input type="text" value="${value}" id="cookie-${value}" class="cookie-name" placeholder="Cookie Name">
 		<button class="delete-cookie">Delete</button>
-	</label>`;
+	`;
 	cookieList.appendChild(newCookieItem);
 }
 
@@ -155,7 +154,10 @@ const getCookie = async (name) => {
 				return;
 			}
 
-			chrome.cookies.get({ url: url, name }, (cookie) => {
+			const currentTab = tabs[0];
+			const storeId = currentTab.incognito ? "1" : "0";
+
+			chrome.cookies.get({ url: url, name, storeId }, (cookie) => {
 				if (!cookie) {
 					alert(`Cookie ${name} not found`);
 					reject(`Cookie ${name} not found`);
