@@ -74,6 +74,13 @@ const removeCookie = (element) => {
 	const name = element.querySelector('.cookie-name').value;
 	cookies = cookies.filter((cookie) => cookie.name !== name);
 	element.remove();
+
+	const deleteButtons = document.querySelectorAll('.delete-cookie');
+	const deleteButtonArray = Array.from(deleteButtons);
+	if (deleteButtonArray.length === 0) {
+		createCookie("");
+		updateDeleteButtons();
+	}
 }
 
 /**
