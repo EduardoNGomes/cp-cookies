@@ -126,6 +126,7 @@ const copyCookies = async () => {
  * Get a cookie by name
  * @param {string} name 
  */
+
 const getCookie = async (name) => {
 	if (!name) {
 		alert("Cookie name is required");
@@ -172,46 +173,49 @@ const getCookie = async (name) => {
  * Paste cookies to browser
  */
 const pasteCookies = async () => {
-	await setCookie(cookies);
-	alert("Cookies pasted");
+	try {
+		await setCookie(cookies);
+	} catch (error) {
+		console.error(error);
+	}
 };
+
 
 /**
  * Set cookies from extension storage
+ * @param {CookiesType[]} cookiesToSet
  */
-const setCookie = (cookiesToSet) => {
-	return new Promise((resolve, reject) => {
-		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+const setCookie = async (cookiesToSet) => {
+	try {
+		await chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 			if (!tabs || tabs.length === 0) {
 				alert("Tab not allowed.");
-				reject("Tab not allowed.");
 				return;
 			}
 
 			const url = tabs[0].url;
 			if (!url.startsWith("http")) {
 				alert("Invalid URL");
-				reject("Invalid URL");
 				return;
 			}
 
-			const setPromises = cookiesToSet.map(cookie =>
-				new Promise((resolveSet, rejectSet) => {
-					chrome.cookies.set({ url: url, name: cookie.name, value: cookie.value }, (cookieSet) => {
-						if (cookieSet) {
-							resolveSet();
-						} else {
-							rejectSet(`Failed to set cookie ${cookie.name}`);
-						}
-					});
-				})
-			);
+			const currentTab = tabs[0];
+			const storeId = currentTab.incognito ? "1" : "0";
 
-			Promise.all(setPromises)
-				.then(resolve)
-				.catch(reject);
-		});
-	});
+			for (const cookie of cookiesToSet) {
+				try {
+					chrome.cookies.set({ url: url, name: cookie.name, value: cookie.value, storeId });
+				} catch (error) {
+					alert(`Failed to set cookie ${cookie.name}`);
+					console.error(error);
+				}
+			}
+			alert("Cookies pasted finished");
+
+		})
+	} catch (error) {
+		console.error(error);
+	}
 };
 
 /** 
