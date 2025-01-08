@@ -25,6 +25,9 @@ A Chrome extension that allows transfering cookies from one tab to another.
 7. Verify if the cookie name are in the list
 8. Click on Paste button
 
+## Good to know
 
+- If you want update your cookie list, remove unnecessary cookies and copy
+  again. The copy can be used like "save".
 
 #### Made with ❤️ by [Eduardo Gomes](https://github.com/eduardongomes)
